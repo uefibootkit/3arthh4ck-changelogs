@@ -1,0 +1,190 @@
+.lamp,
+.shadow {
+    will-change: transform;
+    transform: translateZ(0)
+}
+
+#garlands {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    pointer-events: none;
+    display: flex
+}
+
+.garland-wrapper {
+    display: flex;
+    animation: .4s forwards fadeIn;
+    white-space: nowrap
+}
+
+.lamp-item {
+    overflow: visible;
+    color: #ddd;
+    z-index: 1
+}
+
+.lamp-item svg {
+    display: block
+}
+
+.lamp-item.item1 {
+    margin-top: -5px;
+    margin-left: -9px
+}
+
+.lamp-item.item1 .lamp,
+.lamp-item.item1 .shadow {
+    animation: 12s steps(24, end) infinite colorCycle1
+}
+
+.lamp-item.item2 {
+    margin-top: -3px;
+    margin-left: -8px
+}
+
+.lamp-item.item2 .lamp,
+.lamp-item.item2 .shadow {
+    animation: 12s steps(24, end) infinite colorCycle2
+}
+
+.lamp-item.item3 {
+    margin-top: -8px;
+    margin-left: -8px
+}
+
+.lamp-item.item3 .lamp,
+.lamp-item.item3 .shadow {
+    animation: 12s steps(24, end) infinite colorCycle3
+}
+
+.lamp-item.item4 {
+    margin-top: -6px;
+    margin-left: -8px
+}
+
+.lamp-item.item4 .lamp,
+.lamp-item.item4 .shadow {
+    animation: 12s steps(24, end) infinite colorCycle4
+}
+
+.lamp-item.item5 {
+    margin-top: -7px;
+    margin-left: -10px
+}
+
+.lamp-item.item5 .lamp,
+.lamp-item.item5 .shadow {
+    animation: 12s steps(24, end) infinite colorCycle5
+}
+
+.shadow {
+    color: transparent
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes colorCycle1 {
+    0%,
+    100% {
+        color: #07f
+    }
+    20% {
+        color: #17d685
+    }
+    40% {
+        color: #7FE1FF
+    }
+    60% {
+        color: #f679ff
+    }
+    80% {
+        color: #ab47e9
+    }
+}
+
+@keyframes colorCycle2 {
+    0%,
+    100% {
+        color: #f679ff
+    }
+    20% {
+        color: #FFD700
+    }
+    40% {
+        color: #ab47e9
+    }
+    60% {
+        color: #07f
+    }
+    80% {
+        color: #17d685
+    }
+}
+
+@keyframes colorCycle3 {
+    0%,
+    100% {
+        color: #17d685
+    }
+    20% {
+        color: #07f
+    }
+    40% {
+        color: #ab47e9
+    }
+    60% {
+        color: #f679ff
+    }
+    80% {
+        color: #FFD700
+    }
+}
+
+@keyframes colorCycle4 {
+    0%,
+    100% {
+        color: #FFD700
+    }
+    20% {
+        color: #f679ff
+    }
+    40% {
+        color: #17d685
+    }
+    60% {
+        color: #07f
+    }
+    80% {
+        color: #ab47e9
+    }
+}
+
+@keyframes colorCycle5 {
+    0%,
+    100% {
+        color: #ab47e9
+    }
+    20% {
+        color: #07f
+    }
+    40% {
+        color: #17d685
+    }
+    60% {
+        color: #7FE1FF
+    }
+    80% {
+        color: #f679ff
+    }
+}

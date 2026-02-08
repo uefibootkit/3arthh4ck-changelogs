@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>3arthh4ck</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: black;
+    color: white;
+    overflow: hidden;
+    font-weight: 700;
+}
+
+/* 🌌 Stars */
+canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+
+/* 🔊 Volume */
+.volume-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    display: none; /* introda gizli */
+}
+
+.volume-container input {
+    width: 120px;
+}
+
+/* 📦 CENTER SYSTEM */
+.main, .intro {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🔲 STACK */
+.stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+/* 🪨 LOGO */
+.logo {
+    width: 260px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.logo:active {
+    transform: scale(0.92);
+}
+
+/* ✨ TEXTS */
+.texts {
+    text-align: center;
+}
+
+.fade {
+    opacity: 0;
+    animation: fadeIn 0.35s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.subtitle {
+    font-size: 26px;
+    margin-bottom: 18px;
+}
+
+/* 🌟 BRAND */
+.brand {
+    color: #FFD84D;
+    text-shadow:
+        0 0 4px rgba(255, 216, 77, 0.6),
+        0 0 8px rgba(255, 216, 77, 0.35);
+}
+
+/* 💬 DISCORD */
+.discord {
+    display: inline-block;
+    padding: 14px 36px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.35);
+    color: white;
+    text-decoration: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.discord:hover {
+    box-shadow: 0 0 18px rgba(255,255,255,0.6);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- 🔹 INTRO (ANA EKRANA GEÇİŞ) -->
+<div class="intro" id="intro">
+    <img class="logo" id="introLogo">
+</div>
+
+<!-- 🔹 MAIN -->
+<div class="main" id="main" style="display:none;">
+    <div class="stack">
+
+        <img class="logo" id="mainImage">
+
+        <div class="texts">
+            <div class="subtitle fade">
+                Best solution for biggest problems,
+                <span class="brand">3arthh4ck</span>
+            </div>
+
+            <a class="discord fade"
+               style="animation-delay:0.1s"
+               href="https://discord.gg/mpKmj4Watm"
+               target="_blank">
+               Discord
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="volume-container" id="volumeBox">
+    <input type="range" min="0" max="1" step="0.01" value="0.5" id="volume">
+</div>
+
+<!-- 🎵 AUDIO -->
+<audio id="bgMusic" loop></audio>
+<audio id="clickSound"></audio>
+
+<script>
+/* 🔗 LINKS (KORUNDU) */
+const IMAGE_URL = "https://github.com/uefibootkit/uefibootkit/blob/main/phobos.jpg?raw=true";
+const BG_MUSIC_URL   = "https://github.com/uefibootkit/uefibootkit/raw/refs/heads/main/TheLobotomy.mp3";
+const CLICK_SOUND_URL = "https://github.com/uefibootkit/uefibootkit/raw/refs/heads/main/freddy.mp3";
+
+/* 🎯 ELEMENTS */
+const intro = document.getElementById("intro");
+const main = document.getElementById("main");
+const introLogo = document.getElementById("introLogo");
+const mainImage = document.getElementById("mainImage");
+const bgMusic = document.getElementById("bgMusic");
+const clickSound = document.getElementById("clickSound");
+const volume = document.getElementById("volume");
+const volumeBox = document.getElementById("volumeBox");
+
+/* INIT */
+introLogo.src = IMAGE_URL;
+mainImage.src = IMAGE_URL;
+bgMusic.src = BG_MUSIC_URL;
+clickSound.src = CLICK_SOUND_URL;
+bgMusic.volume = volume.value;
+
+/* ▶ INTRO → MAIN */
+introLogo.addEventListener("click", () => {
+    intro.style.display = "none";
+    main.style.display = "flex";
+    volumeBox.style.display = "block";
+    bgMusic.play();
+});
+
+/* 🖱️ MAIN LOGO CLICK → SES */
+mainImage.addEventListener("click", () => {
+    clickSound.currentTime = 0;
+    clickSound.play();
+});
+
+/* 🔊 VOLUME */
+volume.addEventListener("input", () => {
+    bgMusic.volume = volume.value;
+});
+
+/* 🌠 STARS */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+}
+resize();
+
+const stars = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    z: Math.random() * 2 + 0.5
+}));
+
+function animateStars() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "white";
+
+    stars.forEach(s => {
+        ctx.globalAlpha = s.z / 2;
+        ctx.fillRect(s.x, s.y, 2, 2);
+        s.y += s.z * 0.3;
+        if (s.y > canvas.height) s.y = 0;
+    });
+
+    requestAnimationFrame(animateStars);
+}
+animateStars();
+
+window.addEventListener("resize", resize);
+</script>
+
+</body>
+</html>
